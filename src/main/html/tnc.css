@@ -1,0 +1,174 @@
+body {
+    background-color: #fff;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 14px;
+}
+
+.bg {
+    background-image: url("/image/green-ix-d.jpg");
+    background-size: cover;
+    filter: opacity(.25);
+    -webkit-filter: opacity(.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.arc {
+    background-image: url(/image/arcmask.svg);
+    background-size: cover;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.content {
+    margin: 1em;
+}
+
+.content, .content div {
+    z-index: 2;
+    opacity: 1.0;
+}
+
+.btn-primary {
+    background-color: #4e694a;
+    color: white;
+}
+
+.screen {
+    /*background-color: rgba(1, 1, 1, 0.5);*/
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@font-face {
+    font-family: 'Norwester';
+    src:  url('/fonts/Norwester.ttf.woff') format('woff'),
+        url('/fonts/Norwester.ttf.svg#Norwester') format('svg'),
+        url('/fonts/Norwester.ttf.eot'),
+        url('/fonts/Norwester.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1, h2, h3, h4 {
+    text-transform: capitalize;
+    font-family: 'Norwester', sans-serif;
+}
+
+.cbox {
+    background-image: none;
+}
+
+.emailEntry, .checkItems {
+    padding: 2em;
+    background-color: rgba(219, 246, 215, 0.5);
+    border-radius: 2em;
+    min-width: 50%;
+}
+
+.emailEntry div, .checkItems div, .checkItem {
+    opacity: 1.0;
+}
+
+.emailEntry {
+    margin-top: 1em;
+}
+
+.checkItems {
+    font-size: 1.33em;
+}
+
+
+.bottomish {
+    vertical-align: bottom;
+}
+
+@media (min-width: 992px) {
+    .bottomish h3 {
+        padding-top: 4.5em;
+    }
+}
+
+@media (max-width: 991px) {
+    .bottomish h3 {
+        padding-bottom: 1em;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .col-sm-6 {
+        width: 100%;
+    }
+}
+
+.hardleft {
+    padding-left: 0;
+}
+
+.checkItem {
+    padding-bottom: 0.25em;
+    padding-top: 0.25em;
+    min-width: 100%;
+}
+
+.emailField {
+    min-width: 95%;
+    width: 95%;
+}
+
+.tnc-brand {
+    font-size: 1.25rem !important;
+    text-align: center;
+    line-height: 1.1em;
+}
+
+.spaced {
+    margin-top: 1em;
+}
+
+.inpUpper {
+    border:none;
+    padding-left:1em;
+    padding-right:1em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+}
+
+.inpLower {
+    padding-left:1em;
+    padding-right:1em;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 1px solid #ddd;
+}
+
+.footer {
+    padding-top: 3em;
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+.footer a {
+    color: #ccd;
+}
+
+/*.ftr {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+}*/
