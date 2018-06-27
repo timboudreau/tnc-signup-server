@@ -21,12 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.mastfrog.signup.server.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.mastfrog.acteur.HttpEvent;
+import com.mastfrog.acteur.headers.Headers;
+import static com.mastfrog.signup.server.SignupServer.GUICE_BINDING_LAUNCH_TIMESTAMP;
+import static com.mastfrog.signup.server.SignupServer.GUICE_BINDING_STORAGE_DIR;
 import com.mastfrog.signup.server.VisitorCookie;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  *
@@ -35,7 +46,30 @@ import com.mastfrog.signup.server.VisitorCookie;
 @Singleton
 public class Signups {
 
-    public void add(SignupInfo info, VisitorCookie vk, HttpEvent evt) {
-        
+    private final Path fld;
+    private final AtomicLong index = new AtomicLong();
+    private final ObjectMapper mapper;
+
+    @Inject
+    Signups(@Named(GUICE_BINDING_LAUNCH_TIMESTAMP) long launch, @Named(GUICE_BINDING_STORAGE_DIR) java.nio.file.Path store, ObjectMapper mapper) throws IOException {
+        java.nio.file.Path sess = store.resolve("sessions/" + launch);
+        if (!Files.exists(sess)) {
+            Files.createDirectories(sess);
+        }
+        assert Files.exists(sess) && Files.isDirectory(sess);
+        this.fld = sess;
+        this.mapper = mapper;
+    }
+
+    public Path add(SignupInfo info, VisitorCookie vk, HttpEvent evt) throws IOException {
+        CharSequence ua = evt.header(Headers.USER_AGENT);
+        long now = System.currentTimeMillis();
+        Signup signup = new Signup(info, now, vk, ua == null ? "none" : ua.toString(), false, false);
+
+        Path nue = fld.resolve(now + "-" + index.getAndIncrement() + ".signup");
+        try (OutputStream out = Files.newOutputStream(nue, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
+            mapper.writeValue(out, signup);
+        }
+        return nue;
     }
 }

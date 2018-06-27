@@ -93,7 +93,7 @@ public class SignupServerTest {
         VisitorCookie vc = new VisitorCookie(crypto.decrypt(ck));
         System.out.println("VISITOR COOKIE: " + vc);
 
-        SignupInfo signup = new SignupInfo("foo@bar.com", setOf("stuff", "more-stuff"), tokn);
+        SignupInfo signup = new SignupInfo("foo@bar.com", setOf("community", "invest"), tokn);
 
         String resp = harn.post("/api/signup")
                 .setBody(signup, JSON_UTF_8)
@@ -103,7 +103,7 @@ public class SignupServerTest {
                 .go()
                 .await()
                 .assertStatus(OK)
-                .assertCookieValue("tnc-e", "[more-stuff,stuff]foo@bar.com")
+                .assertCookieValue("tnc-e", "[community,invest]foo@bar.com")
                 .content();
 
         System.out.println("RESP: " + resp);

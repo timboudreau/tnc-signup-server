@@ -29,6 +29,7 @@ import static com.mastfrog.util.Checks.notNull;
 import com.mastfrog.util.Strings;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -45,7 +46,7 @@ public class SignupInfo {
             @JsonProperty(value = "signedUpFor", required = true) Set<String> signedUpFor,
             @JsonProperty(value = "token", required = true) String token) {
         this.emailAddress = notNull("emailAddress", emailAddress);
-        this.signedUpFor = notNull("signedUpFor", signedUpFor);
+        this.signedUpFor = new TreeSet<>(notNull("signedUpFor", signedUpFor));
         this.token = token;
     }
 

@@ -91,7 +91,7 @@ public class SignupServer extends AbstractModule {
     private static final String DEFAULT_PASSWORD = "changeit23";
     public static final String SETTINGS_KEY_STORAGE_DIR = "storage";
     public static final String SETTINGS_KEY_POSSIBLE_SIGNUPS = "categories";
-    public static final String DEFAULT_POSSIBLE_SIGNUPS = "stuff,more-stuff";
+    public static final String DEFAULT_POSSIBLE_SIGNUPS = "invest,community,employment,retail";
     public static final String GUICE_BINDING_STORAGE_DIR = SETTINGS_KEY_STORAGE_DIR;
     public static final String GUICE_BINDING_HIT_COUNTER = "counter";
     public static final String GUICE_BINDING_LAUNCH_TIMESTAMP = "launch";
@@ -141,7 +141,7 @@ public class SignupServer extends AbstractModule {
                 .add(SETTINGS_KEY_STORAGE_DIR, "/tmp/signup-store")
                 .add(SETTINGS_KEY_LOG_FILE, "/tmp/signup-server.log")
                 .add(SETTINGS_KEY_USE_DYN_FILE_RESOURCES, false)
-                .add(SETTINGS_KEY_URLS_HOST_NAME, "truenorthconsulting.com")
+                .add(SETTINGS_KEY_URLS_HOST_NAME, "truenorthcultivation.com")
                 .add(MAX_CONTENT_LENGTH, 2400)
                 .add(SETTINGS_KEY_CORS_ENABLED, "false")
                 .add("application.name", "Signup Server 1.0")
@@ -154,6 +154,7 @@ public class SignupServer extends AbstractModule {
                 .add(settings)
                 .enableOnlyBindingsFor(INT, LONG, STRING, BOOLEAN)
                 .disableCORS()
+//                .withType(VisitorCookie.class)
                 .add(new SignupServer(settings, scope))
                 .add(new LoggingModule().bindLogger("signup").bindLogger("tokens"))
                 .add(new JacksonModule().withJavaTimeSerializationMode(TimeSerializationMode.TIME_AS_ISO_STRING, DurationSerializationMode.DURATION_AS_STRING))
@@ -167,7 +168,6 @@ public class SignupServer extends AbstractModule {
         @Inject
         public RP(ActeurFactory af, StaticResources r, Settings settings) {
             super(af, r, settings);
-            System.out.println("RESOURCES TYPE " + r.getClass().getName());
         }
     }
 

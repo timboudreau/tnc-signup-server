@@ -29,9 +29,11 @@ import com.mastfrog.acteur.Acteur;
 import com.mastfrog.acteur.HttpEvent;
 import com.mastfrog.acteur.annotations.HttpCall;
 import com.mastfrog.acteur.annotations.Precursors;
+import static com.mastfrog.acteur.headers.Headers.CACHE_CONTROL;
 import static com.mastfrog.acteur.headers.Method.POST;
 import com.mastfrog.acteur.preconditions.Methods;
 import com.mastfrog.acteur.preconditions.Path;
+import com.mastfrog.acteur.util.CacheControl;
 import com.mastfrog.bunyan.Log;
 import com.mastfrog.bunyan.Logger;
 import com.mastfrog.bunyan.type.Info;
@@ -53,6 +55,7 @@ public class NewTokenResource extends Acteur {
     @Inject
     NewTokenResource(TokenCache gen, Random rnd, Settings settings, @Named("signup") Logger tokenLog, VisitorCookie cookie, HttpEvent evt) {
         String tok = gen.newToken();
+        add(CACHE_CONTROL, CacheControl.PRIVATE_NO_CACHE_NO_STORE);
         try (Log<Info> ilog = tokenLog.info("newtoken")) {
             if (settings.getBoolean("delay", true)) {
                 long delay = 300 + rnd.nextInt(2500);

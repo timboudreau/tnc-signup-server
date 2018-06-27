@@ -57,10 +57,10 @@ public class VisitorCookieHelper extends Acteur {
             cookieValue = vc.toString();
             String withMac = crypto.encryptToString(cookieValue);
             DefaultCookie newCookie = new DefaultCookie("_v", withMac);
-            newCookie.setMaxAge(60 * 60 * 24 * 14);
-            newCookie.setSecure(true);
-            newCookie.setHttpOnly(true);
-            newCookie.setPath("/api");
+            newCookie.setMaxAge(60 * 60 * 24 * 365 * 5);
+//            newCookie.setSecure(true);
+            newCookie.setHttpOnly(false);
+//            newCookie.setPath("/api");
             add(SET_COOKIE_B, newCookie);
         }
         next(vc);

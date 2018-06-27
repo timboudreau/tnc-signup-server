@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Norwester';
+    src:  url('/fonts/Norwester.ttf.woff') format('woff'),
+        url('/fonts/Norwester.ttf.svg#Norwester') format('svg'),
+        url('/fonts/Norwester.ttf.eot'),
+        url('/fonts/Norwester.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: #fff;
     font-family: 'Archivo Narrow', sans-serif;
@@ -38,28 +48,28 @@ body {
     opacity: 1.0;
 }
 
+.btn-primary[disabled] {
+    border-color: #95b091;
+    background-color: #95b091;
+    color: #ddd;
+}
+
+.btn-primary::hover {
+    background-color: #3d5b27;
+    border-color: #3d5b27;
+}
+
+.statusSuccess {
+    background-color: rgba(61, 91, 39, 0.75) !important;
+}
+
+.status {
+    font-family: 'Archivo Narrow', sans-serif !important;
+}
+
 .btn-primary {
     background-color: #4e694a;
     color: white;
-}
-
-.screen {
-    /*background-color: rgba(1, 1, 1, 0.5);*/
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
-
-@font-face {
-    font-family: 'Norwester';
-    src:  url('/fonts/Norwester.ttf.woff') format('woff'),
-        url('/fonts/Norwester.ttf.svg#Norwester') format('svg'),
-        url('/fonts/Norwester.ttf.eot'),
-        url('/fonts/Norwester.eot?#iefix') format('embedded-opentype'); 
-    font-weight: normal;
-    font-style: normal;
 }
 
 h1, h2, h3, h4 {
@@ -70,12 +80,18 @@ h1, h2, h3, h4 {
 
 .emailEntry, .checkItems {
     color: #4e694a;
-    padding: 2em;
-    /*background-color: rgba(219, 246, 215, 0.5);*/
-    /*background-color: rgba(219, 229, 215, 0.5);*/
+    padding-top: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 1.25em;
     background-color: rgba(229, 229, 229, 0.6);
     border-radius: 2em;
     min-width: 50%;
+    box-shadow: 5px 5px 18px rgba(3, 3, 3, 0.15);
+}
+
+.submitit {
+    text-align: center;
 }
 
 .emailEntry div, .checkItems div, .checkItem {
@@ -135,6 +151,10 @@ h1, h2, h3, h4 {
     line-height: 1.5rem;
 }
 
+.toprow {
+    margin-top: -1em;
+}
+
 .tnc-brand {
     font-size: 1.25rem !important;
     text-align: center;
@@ -146,6 +166,7 @@ h1, h2, h3, h4 {
 }
 
 .inpUpper {
+    min-height: 2em;
     border:none;
     padding-left:1em;
     padding-right:1em;
@@ -154,6 +175,7 @@ h1, h2, h3, h4 {
 }
 
 .inpLower {
+    min-height: 2em;
     padding-left:1em;
     padding-right:1em;
     border-bottom-left-radius: 2em;
@@ -165,7 +187,7 @@ h1, h2, h3, h4 {
 }
 
 .footer {
-    padding-top: 1em;
+    padding-top: 3em;
     color: #ccc;
     font-size: 0.9em;
     text-align: right;
@@ -180,5 +202,8 @@ input[type="checkbox"] {
 }
 
 input[type="submit"] {
-    margin-top: 2em;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-family: 'Norwester', sans-serif;
 }
