@@ -33,17 +33,9 @@
 
             <div class="row">
                 <div id="col-md-12">
-                    &nbsp;
-                </div>
-            </div>
-
-            <div class="row">
-                <div id="col-md-12">
                     <h2>Let's stay in touch</h2>
                 </div>
             </div>
-
-
 
             <form name="signup" ng-controller="TncControl">
                 <!--<div class="jumbotron">-->
@@ -70,15 +62,10 @@
                             <label for="employment">Retail Partnership</label>
                             <input type="checkbox" value="retail" class="pull-right btn cbox" id="retail" name="retail" ng-model="retail">
                         </div>
-                    </div>
-                </div>
-                <div class="row spaced">
-                    <div class="col-md-6">
-                        <!--&nbsp;-->
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-sm-6 emailEntry">
-                        <input type="text" name="name" class="emailField inpUpper" placeholder="name">
-                        <input type="email" name="email" class="emailField inpLower" placeholder="email address">
+                        <div class='inputs'>
+                            <input type="text" name="name" class="emailField inpUpper" placeholder="name">
+                            <input type="email" name="email" class="emailField inpLower" placeholder="email address">
+                        </div>
                     </div>
                 </div>
                 <div class="row spaced">
@@ -87,8 +74,9 @@
                     </div>
                 </div>
             </form>
-            <div id="footer" class="xftr footer">
-                &copy; Copyright 2018, True North Cultivation, LLC. All Rights Reserved. <a href='privacy.html'>Privacy Policy</a>
+            <div id="footer" class="pull-right footer">
+                <a target='pp' href='privacy.html'>Privacy Policy</a><br/>
+                &copy; Copyright 2018, True North Cultivation, LLC. All Rights Reserved. 
             </div>
         </div>
         <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>

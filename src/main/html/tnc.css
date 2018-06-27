@@ -1,14 +1,14 @@
 body {
     background-color: #fff;
     font-family: 'Archivo Narrow', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .bg {
     background-image: url("/image/green-ix-d.jpg");
     background-size: cover;
-    filter: opacity(.25);
-    -webkit-filter: opacity(.5);
+    filter: opacity(.35);
+    -webkit-filter: opacity(.35);
     position: fixed;
     left: 0;
     top: 0;
@@ -29,7 +29,8 @@ body {
 }
 
 .content {
-    margin: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 .content, .content div {
@@ -64,15 +65,15 @@ body {
 h1, h2, h3, h4 {
     text-transform: capitalize;
     font-family: 'Norwester', sans-serif;
-}
-
-.cbox {
-    background-image: none;
+    color: #4e694a;
 }
 
 .emailEntry, .checkItems {
+    color: #4e694a;
     padding: 2em;
-    background-color: rgba(219, 246, 215, 0.5);
+    /*background-color: rgba(219, 246, 215, 0.5);*/
+    /*background-color: rgba(219, 229, 215, 0.5);*/
+    background-color: rgba(229, 229, 229, 0.6);
     border-radius: 2em;
     min-width: 50%;
 }
@@ -96,7 +97,7 @@ h1, h2, h3, h4 {
 
 @media (min-width: 992px) {
     .bottomish h3 {
-        padding-top: 4.5em;
+        padding-top: 3.5em;
     }
 }
 
@@ -126,6 +127,12 @@ h1, h2, h3, h4 {
 .emailField {
     min-width: 95%;
     width: 95%;
+}
+
+.inputs {
+    margin-top: 1em;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
 }
 
 .tnc-brand {
@@ -158,17 +165,20 @@ h1, h2, h3, h4 {
 }
 
 .footer {
-    padding-top: 3em;
+    padding-top: 1em;
     color: #ccc;
     font-size: 0.9em;
+    text-align: right;
 }
 
 .footer a {
     color: #ccd;
 }
 
-/*.ftr {
-    position: fixed;
-    bottom: 1em;
-    left: 1em;
-}*/
+input[type="checkbox"] {
+    zoom: 150%;
+}
+
+input[type="submit"] {
+    margin-top: 2em;
+}
