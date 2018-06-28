@@ -107,6 +107,10 @@ final class TokensConfig {
         return random.nextLong();
     }
 
+    public long randomPrime() {
+        return primes[random.nextInt(primes.length)];
+    }
+
     public short pid() {
         return (short) pid;
     }

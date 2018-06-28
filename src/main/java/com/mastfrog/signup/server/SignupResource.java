@@ -23,6 +23,7 @@
  */
 package com.mastfrog.signup.server;
 
+import static com.google.common.net.MediaType.JSON_UTF_8;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mastfrog.acteur.Acteur;
@@ -31,6 +32,7 @@ import com.mastfrog.acteur.annotations.HttpCall;
 import com.mastfrog.acteur.annotations.Precursors;
 import com.mastfrog.acteur.errors.Err;
 import static com.mastfrog.acteur.headers.Headers.CACHE_CONTROL;
+import static com.mastfrog.acteur.headers.Headers.CONTENT_TYPE;
 import static com.mastfrog.acteur.headers.Headers.SET_COOKIE_B;
 import static com.mastfrog.acteur.headers.Method.POST;
 import com.mastfrog.acteur.preconditions.InjectRequestBodyAs;
@@ -43,6 +45,7 @@ import com.mastfrog.signup.server.model.SignupInfo;
 import com.mastfrog.signup.server.model.Signups;
 import com.mastfrog.signup.server.token.TokenCache;
 import com.mastfrog.util.Strings;
+import static io.netty.handler.codec.http.HttpResponseStatus.CONFLICT;
 import io.netty.handler.codec.http.cookie.DefaultCookie;
 import static io.netty.handler.codec.rtsp.RtspResponseStatuses.PAYMENT_REQUIRED;
 import java.io.IOException;
@@ -84,16 +87,22 @@ public class SignupResource extends Acteur {
             unknowns.removeAll(possibilities);
             reply(Err.badRequest("Unknown categories: " + Strings.join(',', unknowns)));
         }
+        if (tokens.isUsed(info.token)) {
+            reply(new Err(CONFLICT, "You have already signed up"));
+            return;
+        }
         Path file = signups.add(info, cookie, evt);
         signupLog.info("signup")
                 .add("info", info)
                 .add("visitor", cookie)
                 .add("file", file.toString())
                 .close();
+        tokens.onTokenUsed(info.token);
         DefaultCookie ck = new DefaultCookie("tnc_e", "[" + Strings.join(",", info.signedUpFor) + "]" + info.emailAddress);
         ck.setMaxAge(60 * 60 * 24 * 800);
         ck.setHttpOnly(false);
         ck.setPath("/");
+        add(CONTENT_TYPE, JSON_UTF_8);
         add(CACHE_CONTROL, CacheControl.PRIVATE_NO_CACHE_NO_STORE);
         add(SET_COOKIE_B, ck);
         ok("Signed up " + info.emailAddress);

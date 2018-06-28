@@ -23,6 +23,7 @@
  */
 package com.mastfrog.signup.server;
 
+import com.google.common.net.MediaType;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mastfrog.acteur.Acteur;
@@ -30,6 +31,7 @@ import com.mastfrog.acteur.HttpEvent;
 import com.mastfrog.acteur.annotations.HttpCall;
 import com.mastfrog.acteur.annotations.Precursors;
 import static com.mastfrog.acteur.headers.Headers.CACHE_CONTROL;
+import static com.mastfrog.acteur.headers.Headers.CONTENT_TYPE;
 import static com.mastfrog.acteur.headers.Method.POST;
 import com.mastfrog.acteur.preconditions.Methods;
 import com.mastfrog.acteur.preconditions.Path;
@@ -39,6 +41,7 @@ import com.mastfrog.bunyan.Logger;
 import com.mastfrog.bunyan.type.Info;
 import com.mastfrog.settings.Settings;
 import com.mastfrog.signup.server.token.TokenCache;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Random;
 
@@ -52,10 +55,12 @@ import java.util.Random;
 @Precursors(VisitorCookieHelper.class)
 public class NewTokenResource extends Acteur {
 
+
     @Inject
     NewTokenResource(TokenCache gen, Random rnd, Settings settings, @Named("signup") Logger tokenLog, VisitorCookie cookie, HttpEvent evt) {
         String tok = gen.newToken();
         add(CACHE_CONTROL, CacheControl.PRIVATE_NO_CACHE_NO_STORE);
+        add(CONTENT_TYPE, MediaType.PLAIN_TEXT_UTF_8.withCharset(StandardCharsets.US_ASCII));
         try (Log<Info> ilog = tokenLog.info("newtoken")) {
             if (settings.getBoolean("delay", true)) {
                 long delay = 300 + rnd.nextInt(2500);

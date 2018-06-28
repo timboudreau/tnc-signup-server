@@ -25,6 +25,10 @@ public class TokenGenerator {
         this.config = config;
     }
 
+    public long randomPrime() {
+        return config.randomPrime();
+    }
+
     private byte[] toThreeByteArray(int val) {
         byte[] result = new byte[4];
         ByteBuffer.wrap( result ).asIntBuffer().put( val );

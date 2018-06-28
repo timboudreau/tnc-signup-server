@@ -40,14 +40,17 @@ public class SignupInfo {
     public final String emailAddress;
     public final Set<String> signedUpFor;
     public final String token;
+    public final String name;
 
     @JsonCreator
     public SignupInfo(@JsonProperty(value = "emailAddress", required = true) String emailAddress,
             @JsonProperty(value = "signedUpFor", required = true) Set<String> signedUpFor,
-            @JsonProperty(value = "token", required = true) String token) {
+            @JsonProperty(value = "token", required = true) String token,
+            @JsonProperty(value= "name") String name) {
         this.emailAddress = notNull("emailAddress", emailAddress);
         this.signedUpFor = new TreeSet<>(notNull("signedUpFor", signedUpFor));
         this.token = token;
+        this.name = name;
     }
 
     @Override

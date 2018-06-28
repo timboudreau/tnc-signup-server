@@ -40,6 +40,7 @@ import javax.inject.Singleton;
 public class TokenCache {
 
     private final Cache<String, String> cache;
+    private final Cache<String, String> used;
     private final TokenGenerator gen;
     private final Tokens tokens;
     private final Duration tokenMaxAge;
@@ -49,6 +50,8 @@ public class TokenCache {
         tokenMaxAge = Duration.ofMinutes(settings.getInt(SETTINGS_KEY_CACHE_MINUTES, 10));
         this.cache = CacheBuilder.newBuilder().concurrencyLevel(5)
                 .expireAfterAccess(tokenMaxAge.toMillis(), TimeUnit.MILLISECONDS).build();
+        this.used = CacheBuilder.newBuilder().concurrencyLevel(5)
+                .expireAfterAccess(Duration.ofDays(2).toMillis(), TimeUnit.MILLISECONDS).build();
         this.gen = gen;
         this.tokens = tokens;
     }
@@ -57,6 +60,14 @@ public class TokenCache {
         String result = gen.newToken();
         cache.put(result, result);
         return result;
+    }
+    
+    public void onTokenUsed(String token) {
+        used.put(token, token);
+    }
+
+    public boolean isUsed(String token) {
+        return used.getIfPresent(token) != null;
     }
 
     public boolean isValid(String token) {

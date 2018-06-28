@@ -26,6 +26,7 @@ package com.mastfrog.signup.server.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mastfrog.signup.server.VisitorCookie;
+import com.mastfrog.util.time.TimeUtil;
 import java.util.Objects;
 
 /**
@@ -39,26 +40,30 @@ public class Signup implements Comparable<Signup> {
     public final VisitorCookie cookie;
     public final String userAgent;
     public final boolean emailed;
+    public final String revocationToken;
+    public final boolean validated;
 
     @JsonCreator
-    public Signup(@JsonProperty("info") SignupInfo info,
-            @JsonProperty("when") long when,
-            @JsonProperty("cookie") VisitorCookie cookie,
-            @JsonProperty("agent") String userAgent,
-            @JsonProperty("emailed") boolean emailed,
-            @JsonProperty("validated") boolean validated) {
+    public Signup(@JsonProperty(value="info", required=true) SignupInfo info,
+            @JsonProperty(value="when", required=true) long when,
+            @JsonProperty(value="cookie", required=true) VisitorCookie cookie,
+            @JsonProperty(value="agent" ) String userAgent,
+            @JsonProperty(value="emailed") boolean emailed,
+            @JsonProperty(value="validated") boolean validated,
+            @JsonProperty("revocationToken") String revocationToken) {
         this.info = info;
         this.when = when;
         this.cookie = cookie;
         this.userAgent = userAgent;
         this.emailed = emailed;
+        this.validated = validated;
+        this.revocationToken = revocationToken;
     }
 
     @Override
     public String toString() {
-        return "Signup{" + "info=" + info + ", when=" + when + ", cookie="
-                + cookie + ", userAgent=" + userAgent + ", emailed="
-                + emailed + '}';
+        return info + ";" + TimeUtil.toIsoFormat(TimeUtil.fromUnixTimestamp(when)) + ';'
+                + cookie + ';' + emailed + ';' + validated + ';' + revocationToken + ';' + userAgent;
     }
 
     @Override
