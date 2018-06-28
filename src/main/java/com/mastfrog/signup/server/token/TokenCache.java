@@ -48,9 +48,11 @@ public class TokenCache {
     @Inject
     TokenCache(TokenGenerator gen, Settings settings, Tokens tokens) {
         tokenMaxAge = Duration.ofMinutes(settings.getInt(SETTINGS_KEY_CACHE_MINUTES, 10));
-        this.cache = CacheBuilder.newBuilder().concurrencyLevel(5)
+        this.cache = CacheBuilder.newBuilder().softValues().concurrencyLevel(5)
+                .maximumSize(2000)
                 .expireAfterAccess(tokenMaxAge.toMillis(), TimeUnit.MILLISECONDS).build();
-        this.used = CacheBuilder.newBuilder().concurrencyLevel(5)
+        this.used = CacheBuilder.newBuilder().softValues().concurrencyLevel(5)
+                .maximumSize(2000)
                 .expireAfterAccess(Duration.ofDays(2).toMillis(), TimeUnit.MILLISECONDS).build();
         this.gen = gen;
         this.tokens = tokens;
