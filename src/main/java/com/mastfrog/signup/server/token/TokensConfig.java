@@ -2,7 +2,7 @@ package com.mastfrog.signup.server.token;
 
 import com.mastfrog.giulius.DeploymentMode;
 import com.mastfrog.settings.Settings;
-import com.mastfrog.util.ConfigurationError;
+import com.mastfrog.util.preconditions.ConfigurationError;
 import com.mastfrog.util.collections.CollectionUtils;
 import com.mastfrog.util.time.TimeUtil;
 import java.io.IOException;

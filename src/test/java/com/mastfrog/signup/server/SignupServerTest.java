@@ -53,7 +53,7 @@ import static com.mastfrog.signup.server.SignupServer.SETTINGS_KEY_STORAGE_DIR;
 import com.mastfrog.signup.server.SignupServerTest.TestSignupModule;
 import com.mastfrog.signup.server.model.Signup;
 import com.mastfrog.signup.server.model.SignupInfo;
-import com.mastfrog.util.Exceptions;
+import com.mastfrog.util.preconditions.Exceptions;
 import static com.mastfrog.util.collections.CollectionUtils.setOf;
 import static io.netty.handler.codec.http.HttpResponseStatus.CONFLICT;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;

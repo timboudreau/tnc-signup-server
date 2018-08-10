@@ -25,8 +25,8 @@ package com.mastfrog.signup.server.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import static com.mastfrog.util.Checks.notNull;
-import com.mastfrog.util.Strings;
+import static com.mastfrog.util.preconditions.Checks.notNull;
+import com.mastfrog.util.strings.Strings;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;

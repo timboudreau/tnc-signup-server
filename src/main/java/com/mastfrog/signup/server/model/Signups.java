@@ -39,7 +39,7 @@ import static com.mastfrog.signup.server.SignupServer.GUICE_BINDING_TEMP_FOLDER;
 import static com.mastfrog.signup.server.SignupServer.SETTINGS_KEY_REVOCATION_TOKEN_STAMP_SUBTRACT;
 import com.mastfrog.signup.server.VisitorCookie;
 import com.mastfrog.signup.server.token.TokenGenerator;
-import com.mastfrog.util.Exceptions;
+import com.mastfrog.util.preconditions.Exceptions;
 import com.mastfrog.util.strings.RandomStrings;
 import com.mastfrog.util.time.TimeUtil;
 import java.io.IOException;

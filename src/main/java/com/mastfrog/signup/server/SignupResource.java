@@ -23,14 +23,13 @@
  */
 package com.mastfrog.signup.server;
 
-import static com.google.common.net.MediaType.JSON_UTF_8;
+import static com.google.common.net.MediaType.PLAIN_TEXT_UTF_8;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mastfrog.acteur.Acteur;
 import com.mastfrog.acteur.HttpEvent;
 import com.mastfrog.acteur.annotations.HttpCall;
 import com.mastfrog.acteur.annotations.Precursors;
-import com.mastfrog.acteur.errors.Err;
 import static com.mastfrog.acteur.headers.Headers.CACHE_CONTROL;
 import static com.mastfrog.acteur.headers.Headers.CONTENT_TYPE;
 import static com.mastfrog.acteur.headers.Headers.SET_COOKIE_B;
@@ -71,24 +70,25 @@ public class SignupResource extends Acteur {
         Problems problems = new Problems();
         StringValidators.EMAIL_ADDRESS.validate(problems, "address", info.emailAddress);
         if (problems.hasFatal()) {
-            reply(Err.badRequest(problems.getLeadProblem().getMessage()));
+            badRequest(problems.getLeadProblem().getMessage());
             return;
         }
         if (info.signedUpFor.isEmpty()) {
-            reply(Err.badRequest("Nothing selected to sign up for."));
+            badRequest("Nothing selected to sign up for.");
             return;
         }
         if (!tokens.isValid(info.token)) {
-            reply(new Err(PAYMENT_REQUIRED, "Invalid token"));
+            reply(PAYMENT_REQUIRED, "Invalid token.  Try reloading.");
             return;
         }
         if (!possibilities.containsAll(info.signedUpFor)) {
             Set<String> unknowns = new TreeSet<>(info.signedUpFor);
             unknowns.removeAll(possibilities);
-            reply(Err.badRequest("Unknown categories: " + Strings.join(',', unknowns)));
+            badRequest("Unknown categories: " + Strings.join(',', unknowns));
+            return;
         }
         if (tokens.isUsed(info.token)) {
-            reply(new Err(CONFLICT, "You have already signed up"));
+            reply(CONFLICT, "You have already signed up");
             return;
         }
         Path file = signups.add(info, cookie, evt);
@@ -102,9 +102,10 @@ public class SignupResource extends Acteur {
         ck.setMaxAge(60 * 60 * 24 * 800);
         ck.setHttpOnly(false);
         ck.setPath("/");
-        add(CONTENT_TYPE, JSON_UTF_8);
+        add(CONTENT_TYPE, PLAIN_TEXT_UTF_8);
         add(CACHE_CONTROL, CacheControl.PRIVATE_NO_CACHE_NO_STORE);
         add(SET_COOKIE_B, ck);
-        ok("Signed up " + info.emailAddress);
+        ok("{\"msg\": \"Signed up " + info.emailAddress + "\"}");
+//        ok("Signed up " + info.emailAddress);
     }
 }

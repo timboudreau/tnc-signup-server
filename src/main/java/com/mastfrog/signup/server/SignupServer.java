@@ -66,7 +66,7 @@ import com.mastfrog.jackson.JacksonModule;
 import com.mastfrog.jackson.TimeSerializationMode;
 import com.mastfrog.settings.Settings;
 import com.mastfrog.settings.SettingsBuilder;
-import com.mastfrog.util.ConfigurationError;
+import com.mastfrog.util.preconditions.ConfigurationError;
 import com.mastfrog.util.Strings;
 import com.mastfrog.util.strings.RandomStrings;
 import static io.netty.handler.codec.http.HttpResponseStatus.TEMPORARY_REDIRECT;
