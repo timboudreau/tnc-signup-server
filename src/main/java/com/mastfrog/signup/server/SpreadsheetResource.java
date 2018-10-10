@@ -96,7 +96,7 @@ public class SpreadsheetResource extends Acteur {
         }
         String host = evt.header(HOST);
         ZonedDateTime lastModified = TimeUtil.fromUnixTimestamp(lm);
-        String nm = (host == null ? "" : host) + "signups-" + TimeUtil.toSortableStringFormat(lastModified) + ".xslx";
+        String nm = (host == null ? "" : host) + "signups-" + TimeUtil.toSortableStringFormat(lastModified) + ".xlsx";
         add(LAST_MODIFIED, lastModified);
         add(CONTENT_TYPE, MediaType.parse("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         add(Headers.CONTENT_DISPOSITION, "attachment; filename=\"" + nm + "\"");
